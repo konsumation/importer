@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 import { createReadStream } from "fs";
 import csv from "csv-parser";
-
-/*
 import levelup from "levelup";
 import leveldown from "leveldown";
-import { Master, VALUE_PREFIX, secondsAsString } from "konsum-db";
-*/
+import { Master, Category } from "konsum-db";
+
 /**
  */
 async function execute(
@@ -21,16 +19,30 @@ async function execute(
   });
   createReadStream(csvFile, { encoding: "utf8" }).pipe(parser);
 
+  const master = await Master.initialize(await levelup(leveldown(dbFile)));
+
+  const category = new Category(categoryName, master, { unit: "kWh" });
+  await category.write(master.db);
+
+  //const category = await master.category(categoryName);
+  //console.log(category);
+
   for await (const record of parser) {
-    console.log(record);
+    const [day, month, year] = record.date.split(/\//);
+    const date = Math.round(new Date().getTime(year, month, day) / 1000);
+
+    console.log(date, parseFloat(record.total.replace(/,/, ".")));
+
+    await category.writeValue(
+      master.db,
+      parseFloat(record.total.replace(/,/, ".")),
+      date
+    );
   }
 
-  /*
-  const master = await Master.initialize(await levelup(leveldown(dbFile)));
-      let nKey = m[1] + secondsAsString(Math.round(parseFloat(m[2])));
+  await master.backup(process.stdout);
 
-      await master.db.put(nKey, data.value);
-*/
+  await master.close();
 }
 
 execute();
