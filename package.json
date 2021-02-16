@@ -26,8 +26,8 @@
     "lint:docs": "--overwrite-- documentation lint ./src/**/*.mjs"
   },
   "devDependencies": {
-    "c8": "^7.5.0",
     "ava": "^3.15.0",
+    "c8": "^7.5.0",
     "documentation": "github:arlac77/documentation",
     "semantic-release": "^17.3.8"
   },
@@ -45,5 +45,11 @@
       "arlac77/template-github-action",
       "konsumation/template"
     ]
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "konsum-db": "^3.4.0",
+    "leveldown": "^5.6.0",
+    "levelup": "^4.4.0"
   }
 }
