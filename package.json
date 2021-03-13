@@ -5,6 +5,9 @@
     "access": "public"
   },
   "sideEffects": false,
+  "exports": {
+    ".": "{{main}}"
+  },
   "contributors": [
     {
       "name": "Markus Felten",
