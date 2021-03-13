@@ -5,6 +5,9 @@
     "access": "public"
   },
   "sideEffects": false,
+  "exports": {
+    ".": "{{main}}"
+  },
   "contributors": [
     {
       "name": "Markus Felten",
@@ -38,7 +41,7 @@
     "semantic-release": "^17.4.2"
   },
   "engines": {
-    "node": ">=14.15.5"
+    "node": ">=14.16.0"
   },
   "repository": {
     "type": "git",
