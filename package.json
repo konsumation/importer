@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
-    "konsum-db": "^3.4.0",
+    "konsum-db": "^3.4.2",
     "leveldown": "^6.0.0",
     "levelup": "^5.0.1"
   },
