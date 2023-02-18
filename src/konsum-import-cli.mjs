@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { createReadStream } from "fs";
+import { createReadStream } from "node:fs";
 import csv from "csv-parser";
 import levelup from "levelup";
 import leveldown from "leveldown";
