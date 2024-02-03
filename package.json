@@ -2,7 +2,8 @@
   "name": "konsum-importer",
   "version": "0.0.0-semantic-release",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "contributors": [
     {
