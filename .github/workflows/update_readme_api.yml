@@ -6,13 +6,13 @@ jobs:
   update_readme_api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.1
       - uses: actions/setup-node@v4.0.2
         with:
-          node-version: 18.18.2
+          node-version: 20.11.0
       - run: npm ci
       - run: npm run docs
-      - uses: gr2m/create-or-update-pull-request-action@v1.x
+      - uses: gr2m/create-or-update-pull-request-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
