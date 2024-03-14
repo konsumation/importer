@@ -3,7 +3,7 @@ import { createReadStream } from "node:fs";
 import csv from "csv-parser";
 import levelup from "levelup";
 import leveldown from "leveldown";
-import { Master, Category } from "konsum-db";
+import { Master, Category } from "@konsumation/db-level";
 
 /**
  */
