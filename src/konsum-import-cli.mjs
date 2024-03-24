@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 import { createReadStream } from "node:fs";
 import csv from "csv-parser";
-import levelup from "levelup";
-import leveldown from "leveldown";
 import { Master, Category } from "@konsumation/db-level";
 
 /**
@@ -19,7 +17,7 @@ async function execute(
   });
   createReadStream(csvFile, { encoding: "utf8" }).pipe(parser);
 
-  const master = await Master.initialize(await levelup(leveldown(dbFile)));
+  const master = await Master.initialize(dbFile);
 
   const category = new Category(categoryName, master, { unit: "kWh" });
   await category.write(master.db);
