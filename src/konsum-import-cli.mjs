@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --title konsum-importer
 import { createReadStream } from "node:fs";
 import csv from "csv-parser";
 import { Master, Category } from "@konsumation/db-level";
