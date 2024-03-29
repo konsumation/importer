@@ -26,7 +26,7 @@
     "lint:docs": "documentation lint ./src/**/*.mjs"
   },
   "dependencies": {
-    "@konsumation/db-level": "^6.0.3",
+    "@konsumation/db-level": "^6.0.5",
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
