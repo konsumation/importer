@@ -7,7 +7,7 @@
   },
   "exports": {
     ".": {
-      "default": "{{main}}"
+      "default": "./src/import-cli.mjs"
     }
   },
   "contributors": [
