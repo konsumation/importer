@@ -1,5 +1,5 @@
 {
-  "name": "konsum-importer",
+  "name": "@konsumation/importer",
   "version": "0.0.0-semantic-release",
   "publishConfig": {
     "access": "public",
@@ -15,7 +15,7 @@
     }
   ],
   "bin": {
-    "konsum-import": "src/konsum-import-cli.mjs"
+    "konsum-import": "src/import-cli.mjs"
   },
   "scripts": {
     "test": "npm run test:ava",
@@ -40,12 +40,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/konsumation/konsum-importer.git"
+    "url": "git+https://github.com/konsumation/importer.git"
   },
   "bugs": {
-    "url": "https://github.com/konsumation/konsum-importer/issues"
+    "url": "https://github.com/konsumation/importer/issues"
   },
-  "homepage": "https://github.com/konsumation/konsum-importer#readme",
+  "homepage": "https://github.com/konsumation/importer#readme",
   "template": {
     "inheritFrom": [
       "arlac77/template-github-action",
