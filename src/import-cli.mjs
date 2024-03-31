@@ -4,7 +4,6 @@ import csv from "csv-parser";
 import { Master as LevelMaster } from "@konsumation/db-level";
 import { Master as PostgresMaster } from "@konsumation/db-level";
 
-
 /**
  */
 async function execute(
@@ -18,7 +17,6 @@ async function execute(
     headers: ["date", "total", "increment"]
   });
   createReadStream(csvFile, { encoding: "utf8" }).pipe(parser);
-
 
   const category = master.addCategory({ name: categoryName, unit: "kWh" });
   await category.write(master.context);
@@ -42,12 +40,11 @@ async function execute(
   await master.close();
 }
 
-const dbTypes = {
-  'postgresql' : PostgresMaster,
-  'level' : LevelMaster
-};
+const dbTypes = Object.fromEntries(
+  [PostgresMaster, LevelMaster].map(f => [f.name, f])
+);
 
-const dbType = 'level';
+const dbType = "level";
 const dbParam = "db";
 const master = await dbTypes[dbType].initialize(dbParam);
 
