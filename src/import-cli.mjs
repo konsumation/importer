@@ -1,13 +1,15 @@
 #!/usr/bin/env -S node --title konsum-importer
 import { createReadStream } from "node:fs";
 import csv from "csv-parser";
-import { Master, Category } from "@konsumation/db-level";
+import { Master as LevelMaster } from "@konsumation/db-level";
+import { Master as PostgresMaster } from "@konsumation/db-level";
+
 
 /**
  */
 async function execute(
+  master,
   csvFile = "tests/fixtures/sunnyBoy-201703.csv",
-  dbFile = "db",
   categoryName = "sunny"
 ) {
   const parser = csv({
@@ -17,10 +19,9 @@ async function execute(
   });
   createReadStream(csvFile, { encoding: "utf8" }).pipe(parser);
 
-  const master = await Master.initialize(dbFile);
 
-  const category = new Category(categoryName, master, { unit: "kWh" });
-  await category.write(master.db);
+  const category = master.addCategory({ name: categoryName, unit: "kWh" });
+  await category.write(master.context);
 
   //const category = await master.category(categoryName);
   //console.log(category);
@@ -32,15 +33,22 @@ async function execute(
     console.log(date, parseFloat(record.total.replace(/,/, ".")));
 
     await category.writeValue(
-      master.db,
-      parseFloat(record.total.replace(/,/, ".")),
-      date
+      master.context,
+      date,
+      parseFloat(record.total.replace(/,/, "."))
     );
   }
-
-  await master.backup(process.stdout);
 
   await master.close();
 }
 
-execute();
+const dbTypes = {
+  'postgresql' : PostgresMaster,
+  'level' : LevelMaster
+};
+
+const dbType = 'level';
+const dbParam = "db";
+const master = await dbTypes[dbType].initialize(dbParam);
+
+execute(master);
