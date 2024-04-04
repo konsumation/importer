@@ -1,8 +1,22 @@
 #!/usr/bin/env -S node --title konsum-importer
 import { createReadStream } from "node:fs";
 import csv from "csv-parser";
-import { LevelMaster } from "@konsumation/db-level";
-import { PostgresMaster } from "@konsumation/db-postgresql";
+
+async function loadDrivers(names) {
+  const drivers = {};
+
+  for (const name of names) {
+    const driver = await import(name);
+    drivers[driver.default.name] = driver.default;
+  }
+
+  return drivers;
+}
+
+const dbTypes = await loadDrivers([
+  "@konsumation/db-level",
+  "@konsumation/db-postgresql"
+]);
 
 /**
  */
@@ -20,7 +34,10 @@ async function execute(
   });
   createReadStream(csvFile, { encoding: "utf8" }).pipe(parser);
 
-  const category = await master.addCategory({ name: categoryName, unit: "kWh" });
+  const category = await master.addCategory({
+    name: categoryName,
+    unit: "kWh"
+  });
   await category.write(context);
   const meter = await category.addMeter({ name: categoryName });
   await meter.write(context);
@@ -28,7 +45,7 @@ async function execute(
   for await (const record of parser) {
     const [day, month, year] = record.date.split(/\//);
 
-   // console.log(parseFloat(record.total.replace(/,/, ".")));
+    // console.log(parseFloat(record.total.replace(/,/, ".")));
 
     await meter.writeValue(
       context,
@@ -39,10 +56,6 @@ async function execute(
 
   await master.close();
 }
-
-const dbTypes = Object.fromEntries(
-  [PostgresMaster, LevelMaster].map(f => [f.name, f])
-);
 
 console.log(dbTypes);
 
