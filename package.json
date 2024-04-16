@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@konsumation/db-level": "^8.0.1",
-    "@konsumation/db-postgresql": "^3.0.0",
+    "@konsumation/db-postgresql": "^3.0.1",
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
