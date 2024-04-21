@@ -10,6 +10,7 @@
       "default": "./src/import-cli.mjs"
     }
   },
+  "description": "ava openapi testing support",
   "contributors": [
     {
       "name": "Markus Felten",
