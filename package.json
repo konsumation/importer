@@ -35,8 +35,8 @@
     "lint:typescript": "tsc --allowJs --checkJs --noEmit --resolveJsonModule -t esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs"
   },
   "dependencies": {
-    "@konsumation/db-level": "^9.0.18",
-    "@konsumation/db-postgresql": "^4.2.10",
+    "@konsumation/db-level": "^9.0.19",
+    "@konsumation/db-postgresql": "^4.2.11",
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
